@@ -19,6 +19,8 @@ if (!defined('ABSPATH')) {
 }
 
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 final class WeDevsPlugin {
 
   const VERSION = '1.0.0';
@@ -48,10 +50,11 @@ final class WeDevsPlugin {
   }
 
   public function init_plugin() {
+    new WeDevs\Plugin\Api();
     if (is_admin()) {
-      new WeDevs\Admin();
+      new WeDevs\Plugin\Admin();
     } else {
-      new WeDevs\Frontend();
+      new WeDevs\Plugin\Frontend();
     }
   }
 
