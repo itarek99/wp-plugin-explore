@@ -59,13 +59,8 @@ final class WeDevsPlugin {
   }
 
   public function activate() {
-    $installed = get_option('wedevs_installed');
-
-    if (!$installed) {
-      update_option('wedevs_installed', time());
-    }
-
-    update_option('wedevs_version', WEDEVS_VERSION);
+    $installer = new WeDevs\Plugin\Installer();
+    $installer->run();
   }
 }
 
