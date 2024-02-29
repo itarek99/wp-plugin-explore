@@ -4,14 +4,26 @@ namespace WeDevs\Plugin\App;
 
 class Addressbook {
   public function create($data) {
+
+    $defaults = [
+      'name' => '',
+      'address' => '',
+      'phone' => '',
+      'created_by' => get_current_user_id(),
+      'created_at' => current_time('mysql')
+    ];
+
+    $data_for_db = wp_parse_args($data, $defaults);
+
     global $wpdb;
     $table = $wpdb->prefix . 'addressbook';
     $format = ['%s', '%s', '%s'];
-    $wpdb->insert($table, $data, $format);
+    $wpdb->insert($table, $data_for_db, $format);
     return $wpdb->insert_id;
   }
 
   public function get($id) {
+    error_log('get method called 43');
     global $wpdb;
     $table = $wpdb->prefix . 'addressbook';
     $query = "SELECT * FROM $table WHERE id = %d";
